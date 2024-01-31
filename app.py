@@ -7,6 +7,12 @@ app = FastAPI()
 
 @app.get("/secure-endpoint", dependencies=[Depends(verify_api_key_header),Depends(verify_api_key_query)])
 async def secure_endpoint():
+    """
+    Endpoint for a secure resource that requires both header and query API key verification.
+
+    Returns:
+        JSONResponse: A JSON response indicating the status of the secure endpoint.
+    """
     try:
         # Your logic for the secure endpoint here
         message = {"message": "This is a secure endpoint. API key is valid."}
@@ -16,6 +22,12 @@ async def secure_endpoint():
 
 @app.get("/public-endpoint")
 async def public_endpoint():
+    """
+    Endpoint for a public resource that does not require API key verification.
+
+    Returns:
+        JSONResponse: A JSON response for the public endpoint.
+    """
     # Using JSONResponse to create a custom JSON response
     content = {"message": "This is a public endpoint."}
     return JSONResponse(content=content, status_code=200)
